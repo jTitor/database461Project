@@ -137,6 +137,11 @@ public class Database {
 
 		try {
 			connection = DriverManager.getConnection(dbURL);
+
+			/*
+			 *  This is for only sqlite3
+			 * "Foreign key constraints are disabled by default" in sqlite3
+			 */
 			Statement s = connection.createStatement();
 			s.execute("PRAGMA foreign_keys = ON;");
 			s.close();
@@ -174,6 +179,14 @@ public class Database {
 
 		try {
 			connection = DriverManager.getConnection(dbURL, connectionProperties);
+
+			/*
+			 *  This is for only sqlite3
+			 * "Foreign key constraints are disabled by default" in sqlite3
+			 */
+			Statement s = connection.createStatement();
+			s.execute("PRAGMA foreign_keys = ON;");
+			s.close();
 		} catch (SQLException sqlE) {
 			connection = null;
 			return false;
